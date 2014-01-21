@@ -1,7 +1,7 @@
 # bootstrap-session-timeout
 Inspired by [jquery-sessionTimeout-bootstrap by maxfierke](https://github.com/maxfierke/jquery-sessionTimeout-bootstrap)
 
-You can easily upgrade [jquery-sessionTimeout-bootstrap by maxfierke](https://github.com/maxfierke/jquery-sessionTimeout-bootstrap) to bootstrap-session-timeout. There have been a number of major upgrades. For example, as long as the user is doing something on the page, he will never get a timeout. The original plugin launched a timeout warning dialog in a fixed amount of time regardless of user activity. See description and documentation for more information.
+You can easily upgrade from jquery-sessionTimeout-bootstrap to bootstrap-session-timeout. There have been a number of major upgrades. For example, as long as the user is doing something on the page, he will never get a timeout. The original plugin launched a timeout warning dialog in a fixed amount of time regardless of user activity. See description and documentation for more information.
 
 ## Description
 After a set amount of idle time, a Bootstrap warning dialog is shown to the user with the option to either log out, or stay connected. If "Logout" button is selected, the page is redirected to a logout URL. If "Stay Connected" is selected, a keep-alive URL is requested through AJAX (optional) to keep the session alive. If no option is selected after another set amount of idle time, the page is automatically redirected to a timeout URL.
