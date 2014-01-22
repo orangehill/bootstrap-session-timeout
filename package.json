@@ -1,15 +1,12 @@
 {
   "name": "bootstrap-session-timeout",
   "version": "1.0.1",
-  "main": "lib/bootstrap-session-timeout.js",
-  "description": "Displays a Bootstrap display before redirecting the user after a period of inactivity.",
+  "main": "dist/bootstrap-session-timeout.js",
+  "description": "Session timeout and keep-alive control with a nice Bootstrap warning dialog.",
+
   "homepage": "https://github.com/vedraan/bootstrap-session-timeout",
   "bugs": "https://github.com/vedraan/bootstrap-session-timeout/issues",
-  "author": {
-    "name": "Vedran Opacic",
-    "email": "vedran.opacic@orangehilldev.com",
-    "url": "http://www.orangehilldev.com"
-  },
+  "author": "Vedran Opacic, vedran.opacic@orangehilldev.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/vedraan/bootstrap-session-timeout"
@@ -18,6 +15,16 @@
     {
       "type": "MIT"
     }
+  ],
+  "keywords": [
+    "timeout",
+    "time-out",
+    "keepalive",
+    "keep-alive",
+    "session",
+    "bootstrap",
+    "bootstrap 3",
+    "dialog"
   ],
   "devDependencies": {
     "grunt-contrib-jshint": "~0.7.0",
