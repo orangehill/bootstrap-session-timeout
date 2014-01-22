@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-session-timeout",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "main": "lib/bootstrap-session-timeout.js",
   "description": "Displays a Bootstrap display before redirecting the user after a period of inactivity.",
   "homepage": "https://github.com/vedraan/bootstrap-session-timeout",

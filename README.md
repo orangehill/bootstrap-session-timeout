@@ -1,19 +1,23 @@
 # bootstrap-session-timeout
 Inspired by [jquery-sessionTimeout-bootstrap by maxfierke](https://github.com/maxfierke/jquery-sessionTimeout-bootstrap)
 
-You can easily upgrade from jquery-sessionTimeout-bootstrap to bootstrap-session-timeout. There have been a number of major upgrades. For example, as long as the user is doing something on the page, he will never get a timeout. The original plugin launched a timeout warning dialog in a fixed amount of time regardless of user activity. See description and documentation for more information.
+There have been a number of major upgrades. For example, as long as the user is doing something on the page, he will never get a timeout. The original plugin launched a timeout warning dialog in a fixed amount of time regardless of user activity. See description and documentation for more information.
+
+You can easily upgrade from jquery-sessionTimeout-bootstrap to bootstrap-session-timeout, since the basic options have been inherited from jquery-sessionTimeout-bootstrap and have not been renamed.
 
 ## Description
-After a set amount of idle time, a Bootstrap warning dialog is shown to the user with the option to either log out, or stay connected. If "Logout" button is selected, the page is redirected to a logout URL. If "Stay Connected" is selected, a keep-alive URL is requested through AJAX (optional) to keep the session alive. If no option is selected after another set amount of idle time, the page is automatically redirected to a timeout URL.
+After a set amount of idle time, a Bootstrap warning dialog is shown to the user with the option to either log out, or stay connected. If "Logout" button is selected, the page is redirected to a logout URL. If "Stay Connected" is selected the dialog closes and the session is kept alive. If no option is selected after another set amount of idle time, the page is automatically redirected to a set timeout URL.
 
-Idle time is defined as no mouse, keyboard or touch event activity registered by the browser. As long as the user is active, the keep-alive URL also keeps getting pinged and the session stays alive. Optionally, you can also use this plugin as a simple lock mechanism on its own, if you have no need to keep the server-side session alive.
+Idle time is defined as no mouse, keyboard or touch event activity registered by the browser.
+
+As long as the user is active, the (optional) keep-alive URL keeps getting pinged and the session stays alive. If you have no need to keep the server-side session alive via the keep-alive URL, you can also use this plugin as a simple lock mechanism that redirects to your lock-session or log-out URL after a set amount of idle time.
 
 
 ## Getting Started
 
 1. Include `jQuery`
 2. Include `bootstrap.js` and `bootstrap.css`<br>(to support the modal dialog, unless you plan on using your own callback)
-3. Include `bootstrap-session-timeout.js` or `bootstrap-session-timeout.min.js`<br>(from the /dist folder)
+3. Include `bootstrap-session-timeout.js` or the minified `bootstrap-session-timeout.min.js`
 4. Call `$.sessionTimeout();` after document ready
 
 
@@ -26,7 +30,7 @@ Type: `String`
 
 Default: `'Your session is about to expire.'`
 
-Text shown to user in dialog after warning period.
+This is the text shown to user via Bootstrap warning dialog after warning period.
 
 **keepAliveUrl**
 
@@ -42,7 +46,7 @@ Type: `Boolean`
 
 Default: `true`
 
-If `true`, pings the **keepAliveUrl** if the user clicks "Stay Connected" on the Bootstrap warning dialog. If you have no server-side session timeout to worry about, feel free to set this one to `false` to prevent unnecessary network activity.
+If `true`, the plugin keeps pinging the `keepAliveUrl` for as long as the user is active. The time between two pings is set by the `keepAliveInterval` option. If you have no server-side session timeout to worry about, feel free to set this one to `false` to prevent unnecessary network activity.
 
 **keepAliveInterval**
 
@@ -50,7 +54,15 @@ Type: `Integer`
 
 Default: `5000` (5 seconds)
 
-Minimum time in milliseconds between two keep-alive pings.
+Time in milliseconds between two keep-alive pings.
+
+**ajaxData**
+
+Type: `String`
+
+Default: `''`
+
+If you need to send some data via AJAX POST to your `keepAliveUrl`, you can use this option.
 
 **redirUrl**
 
@@ -58,7 +70,7 @@ Type: `String`
 
 Default: `'/timed-out'`
 
-URL to take browser to if no action is take after warning period.
+URL to take browser to if no action is take after the warning.
 
 **logoutUrl**
 
@@ -82,7 +94,7 @@ Type: `Integer`
 
 Default: `1200000` (20 minutes)
 
-Time in milliseconds after page is opened until browser is redirected to redirUrl.
+Time in milliseconds after page is opened until browser is redirected to `redirUrl`.
 
 **ignoreUserActivity**
 
@@ -90,7 +102,7 @@ Type: `Boolean`
 
 Default: `false`
 
-If `true`, this will launch the Bootstrap warning dialog / redirect (or callback functions) in a set amounts of time regardless of user activity.
+If `true`, this will launch the Bootstrap warning dialog / redirect (or callback functions) in a set amounts of time regardless of user activity. This in turn makes the plugin act much like the [jquery-sessionTimeout-bootstrap by maxfierke](https://github.com/maxfierke/jquery-sessionTimeout-bootstrap) plugin.
 
 **onWarn**
 
@@ -98,23 +110,23 @@ Type: `Function` or `Boolean`
 
 Default: `false`
 
-Custom callback you can use instead of showing the Bootstrap warning dialog. Note that if you need the keepAlive option, you will need to include it yourself in the callback function. See Examples below.
+Custom callback you can use instead of showing the Bootstrap warning dialog.
 
-Redirect action will still occur unless you also use add the onRedir callback.
+Redirect action will still occur unless you also add the `onRedir` callback.
 
 **onRedir**
 
 Type: `Function` or `Boolean`
 
-Default: false
+Default: `false`
 
-Custom callback you can use instead of redirectiong the user to **redirUrl**.
+Custom callback you can use instead of redirectiong the user to `redirUrl`.
 
 ## Examples
 
 **Basic Usage**
 
-Shows the warning dialog after one minute. The dialog is visible for another minute. If user takes no action, browser is redirected to `redirUrl`.
+Shows the warning dialog after one minute. The dialog is visible for another minute. If user takes no action (interacts with the page in any way), browser is redirected to `redirUrl`. On any user action (mouse, keyboard or touch) the timeout timer is reset. Of course, you will still need to close the dialog.
 
 ```js
 $.sessionTimeout({
@@ -127,9 +139,9 @@ $.sessionTimeout({
 });
 ```
 
-**With onWorn Callback**
+**With onWarn Callback**
 
-Shows the "Warning!" alert after one minute. If user takes no action, after one more minute the browser is redirected to `redirUrl`.
+Shows the "Warning!" alert after one minute. If user takes no action (interacts with the page in any way), after one more minute the browser is redirected to `redirUrl`. On any user action (mouse, keyboard or touch) the timeout timer is reset.
 
 ```js
 $.sessionTimeout({
@@ -142,9 +154,9 @@ $.sessionTimeout({
 });
 ```
 
-**With both onWorn and onRedir Callback**
+**With both onWarn and onRedir Callback**
 
-Console logs the "Your session will soon expire!" text after one minute. If user takes no action, after two more minutes the "Your session has expired!" alert gets shown. No redirection occurs.
+Console logs the "Your session will soon expire!" text after one minute. If user takes no action (interacts with the page in any way), after two more minutes the "Your session has expired!" alert gets shown. No redirection occurs. On any user action (mouse, keyboard or touch) the timeout timer is reset.
 
 ```js
 $.sessionTimeout({
@@ -163,7 +175,8 @@ $.sessionTimeout({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add comments for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
- * 2012-09-10   v1.0.0   Initial release.
+ * 2014-01-23   v1.0.1   Added an option to sent data to the keep-alive URL.
+ * 2014-01-22   v1.0.0   Initial release.
 
 ## License
 Copyright (c) 2014 [Orange Hill](http://www.orangehilldev.com). Licensed under the MIT license.

@@ -13,6 +13,7 @@
         var defaults = {
             message             : 'Your session is about to expire.',
             keepAliveUrl        : '/keep-alive',
+            ajaxData            : '',
             redirUrl            : '/timed-out',
             logoutUrl           : '/log-out',
             warnAfter           : 900000,   // 15 minutes
@@ -63,12 +64,14 @@
         }
 
         // keeps the server side connection live, by pingin url set in keepAliveUrl option
+        // keepAlivePinged is a helper var to ensure the functionality of the keepAliveInterval option
         var keepAlivePinged = false;
         function keepAlive () {
             if (!keepAlivePinged){
                 $.ajax({
                     type: 'POST',
-                    url: opt.keepAliveUrl
+                    url: opt.keepAliveUrl,
+                    data: opt.ajaxData
                 });
                 keepAlivePinged = true;
                 setTimeout(function() {
