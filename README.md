@@ -175,7 +175,7 @@ $.sessionTimeout({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add comments for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
- * 2014-01-23   v1.0.1   Added an option to sent data to the keep-alive URL.
+ * 2014-01-23   v1.0.1   Added an option to send data to the keep-alive URL.
  * 2014-01-22   v1.0.0   Initial release.
 
 ## License
