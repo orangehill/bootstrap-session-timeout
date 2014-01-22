@@ -24,6 +24,8 @@
     "session",
     "bootstrap",
     "bootstrap 3",
+    "jquery",
+    "javascript",
     "dialog"
   ],
   "devDependencies": {
