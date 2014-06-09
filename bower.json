@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "homepage": "https://github.com/sourceallies/bootstrap-session-timeout",
   "authors": [
-    "Vedran Opacic"
+    "Vedran Opacic <vedran.opacic@orangehilldev.com>"
   ],
   "description": "A session timeout warning in a bootstrap modal.",
   "keywords": [
