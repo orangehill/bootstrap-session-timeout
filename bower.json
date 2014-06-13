@@ -1,16 +1,22 @@
 {
   "name": "bootstrap-session-timeout",
   "version": "1.0.1",
-  "homepage": "https://github.com/sourceallies/bootstrap-session-timeout",
+  "homepage": "https://github.com/orangehill/bootstrap-session-timeout",
   "authors": [
     "Vedran Opacic <vedran.opacic@orangehilldev.com>"
   ],
-  "description": "A session timeout warning in a bootstrap modal.",
+  "description": "Session timeout and keep-alive control with a nice Bootstrap warning dialog.",
   "keywords": [
-    "bootstrap",
-	"jquery",
+    "timeout",
+    "time-out",
+    "keepalive",
+    "keep-alive",
     "session",
-    "timeout"
+    "bootstrap",
+    "bootstrap 3",
+    "jquery",
+    "javascript",
+    "dialog"
   ],
   "license": "MIT",
   "ignore": [
