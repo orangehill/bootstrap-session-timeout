@@ -1,0 +1,22 @@
+{
+  "name": "bootstrap-session-timeout",
+  "version": "1.0.1",
+  "homepage": "https://github.com/sourceallies/bootstrap-session-timeout",
+  "authors": [
+    "Vedran Opacic <vedran.opacic@orangehilldev.com>"
+  ],
+  "description": "A session timeout warning in a bootstrap modal.",
+  "keywords": [
+    "bootstrap",
+	"jquery",
+    "session",
+    "timeout"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
