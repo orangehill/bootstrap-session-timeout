@@ -13,8 +13,8 @@
         var defaults = {
         	title				: 'Your Session is About to Expire!',
             message             : 'Your session is about to expire.',
-            logoutButton		    : 'Logout',
-            keepAliveButton		  : 'Stay Connected',
+            logoutButton		: 'Logout',
+            keepAliveButton		: 'Stay Connected',
             keepAliveUrl        : '/keep-alive',
             ajaxType            : 'POST',
             ajaxData            : '',
