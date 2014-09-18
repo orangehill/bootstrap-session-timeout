@@ -24,6 +24,14 @@ As long as the user is active, the (optional) keep-alive URL keeps getting pinge
 
 ## Documentation
 ### Options
+**title**<br>
+
+Type: `String`
+
+Default: `'Your session is about to expire!'`
+
+This is the text shown to user via Bootstrap warning dialog after warning period. (modal title)
+
 **message**<br>
 
 Type: `String`
@@ -31,6 +39,22 @@ Type: `String`
 Default: `'Your session is about to expire.'`
 
 This is the text shown to user via Bootstrap warning dialog after warning period.
+
+**logoutButton**<br>
+
+Type: `String`
+
+Default: `'Logout'`
+
+This is the text shown to user via Bootstrap warning dialog after warning period in the logout button.
+
+**keepAliveButton**<br>
+
+Type: `String`
+
+Default: `'Stay Connected'`
+
+This is the text shown to user via Bootstrap warning dialog after warning period in the Kepp Alive button.
 
 **keepAliveUrl**
 
@@ -55,6 +79,14 @@ Type: `Integer`
 Default: `5000` (5 seconds)
 
 Time in milliseconds between two keep-alive pings.
+
+**ajaxType**
+
+Type: `String`
+
+Default: `'POST'`
+
+If you need to specify the ajax method
 
 **ajaxData**
 

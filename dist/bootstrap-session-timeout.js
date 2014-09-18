@@ -11,8 +11,12 @@
 (function( $ ){
     jQuery.sessionTimeout = function( options ) {
         var defaults = {
+            title               : 'Your Session is About to Expire!',
             message             : 'Your session is about to expire.',
+            logoutButton        : 'Logout',
+            keepAliveButton     : 'Stay Connected',
             keepAliveUrl        : '/keep-alive',
+            ajaxType            : 'POST',
             ajaxData            : '',
             redirUrl            : '/timed-out',
             logoutUrl           : '/log-out',
@@ -45,7 +49,21 @@
         // unless user set his own callback function, prepare bootstrap modal elements and events
         if(typeof opt.onWarn !== 'function'){
             // create timeout warning dialog
-            $('body').append('<div class="modal fade" id="sessionTimeout-dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">Your Session is About to Expire!</h4></div><div class="modal-body">'+ opt.message +'</div><div class="modal-footer"><button id="sessionTimeout-dialog-logout" type="button" class="btn btn-default">Logout</button><button id="sessionTimeout-dialog-keepalive" type="button" class="btn btn-primary" data-dismiss="modal">Stay Connected</button></div></div></div></div>');
+            $('body').append('<div class="modal fade" id="sessionTimeout-dialog"> \
+              <div class="modal-dialog"> \
+                <div class="modal-content"> \
+                  <div class="modal-header"> \
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> \
+                    <h4 class="modal-title">'+ opt.title +'</h4> \
+                  </div> \
+                  <div class="modal-body">'+ opt.message +'</div> \
+                  <div class="modal-footer"> \
+                    <button id="sessionTimeout-dialog-logout" type="button" class="btn btn-default">'+ opt.logoutButton +'</button> \
+                    <button id="sessionTimeout-dialog-keepalive" type="button" class="btn btn-primary" data-dismiss="modal">'+ opt.keepAliveButton +'</button> \
+                  </div> \
+                </div> \
+              </div> \
+             </div>');
 
             // "Logout" button click
             $('#sessionTimeout-dialog-logout').on('click', function () { window.location = opt.logoutUrl; });
@@ -69,7 +87,7 @@
         function keepAlive () {
             if (!keepAlivePinged){
                 $.ajax({
-                    type: 'POST',
+                    type: opt.ajaxType,
                     url: opt.keepAliveUrl,
                     data: opt.ajaxData
                 });
