@@ -15,10 +15,10 @@ As long as the user is active, the (optional) keep-alive URL keeps getting pinge
 
 ## Getting Started
 
-1. Include `jQuery`
-2. Include `bootstrap.js` and `bootstrap.css`<br>(to support the modal dialog, unless you plan on using your own callback)
-3. Include `bootstrap-session-timeout.js` or the minified `bootstrap-session-timeout.min.js`
-4. Call `$.sessionTimeout();` after document ready
+1. Download or git clone.
+2. Run `bower install` to install dependencies or if you prefer to do it manually: include jQuery, Bootstrap JS and CSS (required if you want to use Bootstrap modal window).
+3. Include `bootstrap-session-timeout.js` or the minified version `bootstrap-session-timeout.min.js`
+4. Call `$.sessionTimeout();` on document ready. See available options below or take a look at the examples.
 
 
 
@@ -136,13 +136,38 @@ Default: `false`
 
 If `true`, this will launch the Bootstrap warning dialog / redirect (or callback functions) in a set amounts of time regardless of user activity. This in turn makes the plugin act much like the [jquery-sessionTimeout-bootstrap by maxfierke](https://github.com/maxfierke/jquery-sessionTimeout-bootstrap) plugin.
 
+**countdownMessage**
+
+Type: `String` or `Boolean`
+
+Default: `false`
+
+If you want a custom sentence to appear in the warning dialog with a timer showing the seconds remaining, use this option. Example: `countdownMessage: 'Redirecting in {timer} seconds.'` Place the `{timer}` string where you want the numeric countdown (seconds) to appear. Another example: `countdownMessage: '{timer} seconds remaining.'`. Can be combined with countdownBar option or used independently.
+
+**countdownBar**
+
+Type: `Boolean`
+
+Default: `false`
+
+If `true`, ads a countdown bar (uses Bootstrap progress bar) to the warning dialog. Can be combined with countdownMessage option or used independently.
+
+**onStart**
+
+Type: `Function` or `Boolean`
+
+Default: `false`
+
+Optional callback fired when first calling the plugin and every time user refreshes the session (on any mouse, keyboard or touch action). Takes options object as the only argument.
+
+
 **onWarn**
 
 Type: `Function` or `Boolean`
 
 Default: `false`
 
-Custom callback you can use instead of showing the Bootstrap warning dialog.
+Custom callback you can use instead of showing the Bootstrap warning dialog. Takes options object as the only argument.
 
 Redirect action will still occur unless you also add the `onRedir` callback.
 
@@ -152,9 +177,12 @@ Type: `Function` or `Boolean`
 
 Default: `false`
 
-Custom callback you can use instead of redirectiong the user to `redirUrl`.
+Custom callback you can use instead of redirectiong the user to `redirUrl`. Takes options object as the only argument.
 
 ## Examples
+
+You can play around with the examples in the `/examples` directory.
+
 
 **Basic Usage**
 
@@ -180,7 +208,7 @@ $.sessionTimeout({
 	redirUrl: 'locked.html',
 	warnAfter: 60000,
 	redirAfter: 120000,
-	onWarn: function{
+	onWarn: function () {
 		alert('Warning!');
 	}
 });
@@ -194,12 +222,28 @@ Console logs the "Your session will soon expire!" text after one minute. If user
 $.sessionTimeout({
 	warnAfter: 60000,
 	redirAfter: 180000,
-	onWarn: function{
+	onWarn: function () {
 		console.log('Your session will soon expire!');
 	},
-	onRedir: function{
+	onRedir: function () {
 		alert('Your session has expired!');
 	}
+});
+```
+
+**With countdown message and bar displayed in warning dialog**
+
+Same as basic usage except you'll also see the countdown message and countdown bar in the warning dialog. Uses Bootstrap progress bar. In countdownMessage place the `{timer}` string where you want the numeric countdown (seconds) to appear.
+
+```js
+$.sessionTimeout({
+    keepAliveUrl: 'keep-alive.html',
+    logoutUrl: 'login.html',
+    redirUrl: 'locked.html',
+    warnAfter: 60000,
+	redirAfter: 120000,
+    countdownMessage: 'Redirecting in {timer} seconds.',
+    countdownBar: true
 });
 ```
 
@@ -207,8 +251,14 @@ $.sessionTimeout({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add comments for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
- * 2014-01-23   v1.0.1   Added an option to send data to the keep-alive URL.
- * 2014-01-22   v1.0.0   Initial release.
+ * **1.0.2** `2015-02-10`
+	 * Added optional onStart callback.
+	 * All custom callbacks nowreceive options object as argument. 
+	 * Added optional countdown message. Added optional countdown bar.
+ * **1.0.1** `2014-01-23`
+	 * Added an option to send data to the keep-alive URL.
+ * **1.0.0** `2014-01-22`
+	 * Initial release.
 
 ## License
 Copyright (c) 2014 [Orange Hill](http://www.orangehilldev.com). Licensed under the MIT license.

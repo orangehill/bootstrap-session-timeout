@@ -15,19 +15,12 @@ module.exports = function (grunt) {
       },
       dist: {
         src: ['dist/bootstrap-session-timeout.js']
-      },
-      test: {
-        src: ['test/**/*.js']
       }
     },
     watch: {
       dist: {
         files: '<%= jshint.dist.src %>',
         tasks: ['jshint:dist']
-      },
-      test: {
-        files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test']
       }
     },
     uglify: {

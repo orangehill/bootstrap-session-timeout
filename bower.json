@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-session-timeout",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/orangehill/bootstrap-session-timeout",
   "authors": [
     "Vedran Opacic <vedran.opacic@orangehilldev.com>"
@@ -24,5 +24,9 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "jquery": "~2.1.3"
+  }
 }
