@@ -94,7 +94,10 @@
         // Reset timer on any of these events
         if (!opt.ignoreUserActivity) {
             $(document).on('keyup mouseup mousemove touchend touchmove', function() {
-                startSessionTimer();
+                if(!$('#session-timeout-dialog').hasClass('in')) {
+					// If warning dialog is not already open start session timer
+					startSessionTimer();
+				}
             });
         }
 
@@ -149,9 +152,8 @@
         function startDialogTimer() {
             // Clear session timer
             clearTimeout(timer);
-            if (!$('#session-timeout-dialog').hasClass('in') && (opt.countdownMessage || opt.countdownBar)) {
-                // If warning dialog is not already open and either opt.countdownMessage
-                // or opt.countdownBar are set start countdown
+            if ((opt.countdownMessage || opt.countdownBar)) {
+                // If either opt.countdownMessage or opt.countdownBar are set start countdown
                 startCountdownTimer('dialog', true);
             }
             // Set dialog timer
