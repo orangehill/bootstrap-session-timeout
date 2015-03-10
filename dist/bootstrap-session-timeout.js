@@ -95,9 +95,9 @@
         if (!opt.ignoreUserActivity) {
             $(document).on('keyup mouseup mousemove touchend touchmove', function() {
                 if(!$('#session-timeout-dialog').hasClass('in')) {
-					// If warning dialog is not already open start session timer
-					startSessionTimer();
-				}
+			// If warning dialog is not already open start session timer
+			startSessionTimer();
+		}
             });
         }
 
