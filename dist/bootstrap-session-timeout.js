@@ -29,7 +29,8 @@
             onWarn: false,
             onRedir: false,
             countdownMessage: false,
-            countdownBar: false
+            countdownBar: false,
+            countdownSmart: false
         };
 
         var opt = defaults,
@@ -55,7 +56,7 @@
             var coundownBarHtml = opt.countdownBar ?
                 '<div class="progress"> \
                   <div class="progress-bar progress-bar-striped countdown-bar active" role="progressbar" style="min-width: 15px; width: 100%;"> \
-                    <span class="countdown-holder"></span><span>s</span> \
+                    <span class="countdown-holder"></span> \
                   </div> \
                 </div>' : '';
 
@@ -196,7 +197,18 @@
                 countdown.percentLeft = Math.floor(countdown.timeLeft / (opt.redirAfter / 1000) * 100);
             }
             // Set countdown message time value
-            $('.countdown-holder').text(countdown.timeLeft);
+            var countdownEl = $('.countdown-holder');
+            var secondsLeft = countdown.timeLeft >= 0 ? countdown.timeLeft : 0;
+            if (opt.countdownSmart) {
+                var minLeft = Math.floor(secondsLeft / 60);
+                var secRemain = secondsLeft % 60;
+                var countTxt = minLeft > 0 ? minLeft + 'm' : '';
+                if (countTxt.length > 0) { countTxt += ' '; }
+                countTxt += secRemain + 's';
+                countdownEl.text(countTxt);
+            } else {
+                countdownEl.text(secondsLeft + "s");
+            }
 
             // Set countdown message time value
             if (opt.countdownBar) {

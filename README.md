@@ -136,13 +136,22 @@ Default: `false`
 
 If `true`, this will launch the Bootstrap warning dialog / redirect (or callback functions) in a set amounts of time regardless of user activity. This in turn makes the plugin act much like the [jquery-sessionTimeout-bootstrap by maxfierke](https://github.com/maxfierke/jquery-sessionTimeout-bootstrap) plugin.
 
+**countdownSmart**
+
+Type: `Boolean`
+
+Default: `false`
+
+If `true`, displays minutes as well as seconds in the countdown timer (e.g. "3m 14s").
+Displays only seconds when timer is under one minute (e.g. "42s").
+
 **countdownMessage**
 
 Type: `String` or `Boolean`
 
 Default: `false`
 
-If you want a custom sentence to appear in the warning dialog with a timer showing the seconds remaining, use this option. Example: `countdownMessage: 'Redirecting in {timer} seconds.'` Place the `{timer}` string where you want the numeric countdown (seconds) to appear. Another example: `countdownMessage: '{timer} seconds remaining.'`. Can be combined with countdownBar option or used independently.
+If you want a custom sentence to appear in the warning dialog with a timer showing the seconds remaining, use this option. Example: `countdownMessage: 'Redirecting in {timer}.'` Place the `{timer}` string where you want the numeric countdown to appear. Another example: `countdownMessage: '{timer} remaining.'`. Can be combined with countdownBar option or used independently.
 
 **countdownBar**
 
