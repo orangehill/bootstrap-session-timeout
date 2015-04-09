@@ -95,6 +95,16 @@
         if (!opt.ignoreUserActivity) {
             $(document).on('keyup mouseup mousemove touchend touchmove', function() {
                 startSessionTimer();
+
+                // If they moved the mouse not only reset the counter
+                // but remove the modal too!
+                if( $('#session-timeout-dialog').length > 0 && 
+                    $('#session-timeout-dialog').data('bs.modal').isShown )
+                {
+                    $('#session-timeout-dialog').remove();
+                    $('body').removeClass('modal-open');
+                    $('div.modal-backdrop').remove();
+                }
             });
         }
 
