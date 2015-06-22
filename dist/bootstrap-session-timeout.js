@@ -100,6 +100,7 @@
                 // If they moved the mouse not only reset the counter
                 // but remove the modal too!
                 if( $('#session-timeout-dialog').length > 0 && 
+                    typeof $('#session-timeout-dialog').data('bs.modal') != 'undefined' && // IE8 fix
                     $('#session-timeout-dialog').data('bs.modal').isShown )
                 {
                    // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
