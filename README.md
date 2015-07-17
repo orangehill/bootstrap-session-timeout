@@ -186,7 +186,7 @@ Type: `Function` or `Boolean`
 
 Default: `false`
 
-Custom callback you can use instead of redirectiong the user to `redirUrl`. Takes options object as the only argument.
+Custom callback you can use instead of redirecting the user to `redirUrl`. Takes options object as the only argument.
 
 ## Examples
 
