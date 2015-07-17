@@ -14,6 +14,7 @@
   "globals": {
     "document": true,
     "window": true,
-    "jQuery": true
+    "jQuery": true,
+    "$": true
   }
 }
