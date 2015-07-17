@@ -260,6 +260,8 @@ $.sessionTimeout({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add comments for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+ * **1.0.3** `2015-07-17`
+	 * Fixes various reported bugs
  * **1.0.2** `2015-02-10`
 	 * Added optional onStart callback.
 	 * All custom callbacks nowreceive options object as argument. 
