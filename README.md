@@ -54,7 +54,7 @@ Type: `String`
 
 Default: `'Stay Connected'`
 
-This is the text shown to user via Bootstrap warning dialog after warning period in the Kepp Alive button.
+This is the text shown to user via Bootstrap warning dialog after warning period in the Keep Alive button.
 
 **keepAliveUrl**
 
