@@ -12,15 +12,12 @@ Idle time is defined as no mouse, keyboard or touch event activity registered by
 
 As long as the user is active, the (optional) keep-alive URL keeps getting pinged and the session stays alive. If you have no need to keep the server-side session alive via the keep-alive URL, you can also use this plugin as a simple lock mechanism that redirects to your lock-session or log-out URL after a set amount of idle time.
 
-
 ## Getting Started
 
 1. Download or git clone.
 2. Run `bower install` to install dependencies or if you prefer to do it manually: include jQuery, Bootstrap JS and CSS (required if you want to use Bootstrap modal window).
 3. Include `bootstrap-session-timeout.js` or the minified version `bootstrap-session-timeout.min.js`
 4. Call `$.sessionTimeout();` on document ready. See available options below or take a look at the examples.
-
-
 
 ## Documentation
 ### Options
@@ -169,7 +166,6 @@ Default: `false`
 
 Optional callback fired when first calling the plugin and every time user refreshes the session (on any mouse, keyboard or touch action). Takes options object as the only argument.
 
-
 **onWarn**
 
 Type: `Function` or `Boolean`
@@ -188,10 +184,17 @@ Default: `false`
 
 Custom callback you can use instead of redirecting the user to `redirUrl`. Takes options object as the only argument.
 
+**hideButtons**
+
+Type: `Boolean`
+
+Default: `false`
+
+Disable action buttons
+
 ## Examples
 
 You can play around with the examples in the `/examples` directory.
-
 
 **Basic Usage**
 
@@ -264,7 +267,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 	 * Fixes various reported bugs
  * **1.0.2** `2015-02-10`
 	 * Added optional onStart callback.
-	 * All custom callbacks nowreceive options object as argument. 
+	 * All custom callbacks nowreceive options object as argument.
 	 * Added optional countdown message. Added optional countdown bar.
  * **1.0.1** `2014-01-23`
 	 * Added an option to send data to the keep-alive URL.
