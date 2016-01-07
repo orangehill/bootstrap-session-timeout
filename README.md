@@ -188,6 +188,14 @@ Default: `false`
 
 Custom callback you can use instead of redirecting the user to `redirUrl`. Takes options object as the only argument.
 
+**anyActionHidesModal**
+
+Type: `Boolean`
+
+Default: `false`
+
+Optional callback to make the Bootsrap warning dialog/Modal hide on any action.  WARNING: If set to true, accessibility technology users will have less than optimal experience. 
+
 ## Examples
 
 You can play around with the examples in the `/examples` directory.
@@ -195,7 +203,7 @@ You can play around with the examples in the `/examples` directory.
 
 **Basic Usage**
 
-Shows the warning dialog after one minute. The dialog is visible for another minute. If user takes no action (interacts with the page in any way), browser is redirected to `redirUrl`. On any user action (mouse, keyboard or touch) the timeout timer is reset. Of course, you will still need to close the dialog.
+Shows the warning dialog after one minute. The dialog is visible for another minute. If user takes no action (interacts with the page in any way), browser is redirected to `redirUrl`. On any user action (mouse, keyboard or touch) the timeout timer is reset. Of course, you will still need to close the dialog (if you would like to disable this see anyActionHidesModal).
 
 ```js
 $.sessionTimeout({

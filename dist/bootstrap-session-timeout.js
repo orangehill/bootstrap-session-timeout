@@ -30,7 +30,8 @@
             onRedir: false,
             countdownMessage: false,
             countdownBar: false,
-            countdownSmart: false
+            countdownSmart: false,
+            actionHidesModal: false
         };
 
         var opt = defaults,
@@ -110,13 +111,20 @@
                 // If they moved the mouse not only reset the counter
                 // but remove the modal too!
                 if ($('#session-timeout-dialog').length > 0 &&
-                    $('#session-timeout-dialog').data('bs.modal') &&
-                    $('#session-timeout-dialog').data('bs.modal').isShown) {
-                    // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
-                    $('#session-timeout-dialog').modal('hide');
-                    $('body').removeClass('modal-open');
-                    $('div.modal-backdrop').remove();
-
+                    $('#session-timeout-dialog').data('bs.modal')){
+                    if(opt.actionHidesModal){
+                        console.log("Action Hides Modal = TRUE")
+                        if($('#session-timeout-dialog').data('bs.modal').isShown) {
+                            // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
+                            $('#session-timeout-dialog').modal('hide');
+                            $('body').removeClass('modal-open');
+                            $('div.modal-backdrop').remove();
+                        }
+                    }
+                    else{
+                        console.log("Action Hides Modal = TRUE")
+                        $('#session-timeout-dialog').remove();   
+                    }
                 }
             });
         }
