@@ -188,7 +188,7 @@ Default: `false`
 
 Custom callback you can use instead of redirecting the user to `redirUrl`. Takes options object as the only argument.
 
-**anyActionHidesModal**
+**hideModalOnAction**
 
 Type: `Boolean`
 
