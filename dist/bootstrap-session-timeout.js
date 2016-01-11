@@ -62,7 +62,7 @@
                 </div>' : '';
 
             // Create timeout warning dialog
-            $('body').append('<div class="modal fade" id="session-timeout-dialog" role="alertdialog" aria-labelledby="session_timeout_header" > \
+            $('body').append('<div class="modal fade" id="session-timeout-dialog" role="alertdialog" aria-labelledby="session_timeout_header" tabindex="-1" > \
               <div class="modal-dialog"> \
                 <div class="modal-content"> \
                   <div class="modal-header"> \
