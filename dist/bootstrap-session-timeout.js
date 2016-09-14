@@ -30,7 +30,8 @@
             onRedir: false,
             countdownMessage: false,
             countdownBar: false,
-            countdownSmart: false
+            countdownSmart: false,
+            hideModalOnAction: false
         };
 
         var opt = defaults,
@@ -61,12 +62,12 @@
                 </div>' : '';
 
             // Create timeout warning dialog
-            $('body').append('<div class="modal fade" id="session-timeout-dialog"> \
+            $('body').append('<div class="modal fade" id="session-timeout-dialog" role="alertdialog" aria-labelledby="session_timeout_header" tabindex="-1" > \
               <div class="modal-dialog"> \
                 <div class="modal-content"> \
                   <div class="modal-header"> \
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> \
-                    <h4 class="modal-title">' + opt.title + '</h4> \
+                    <button type="button" class="close" data-dismiss="modal">&times;</button> \
+                    <h1 class="modal-title" id="session_timeout_header">' + opt.title + '</h1> \
                   </div> \
                   <div class="modal-body"> \
                     <p>' + opt.message + '</p> \
@@ -110,13 +111,15 @@
                 // If they moved the mouse not only reset the counter
                 // but remove the modal too!
                 if ($('#session-timeout-dialog').length > 0 &&
-                    $('#session-timeout-dialog').data('bs.modal') &&
-                    $('#session-timeout-dialog').data('bs.modal').isShown) {
-                    // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
-                    $('#session-timeout-dialog').modal('hide');
-                    $('body').removeClass('modal-open');
-                    $('div.modal-backdrop').remove();
-
+                    $('#session-timeout-dialog').data('bs.modal')){
+                    if(opt.hideModalOnAction){
+                        if($('#session-timeout-dialog').data('bs.modal').isShown) {
+                            // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
+                            $('#session-timeout-dialog').modal('hide');
+                            $('body').removeClass('modal-open');
+                            $('div.modal-backdrop').remove();
+                        }
+                    }
                 }
             });
         }
@@ -161,6 +164,7 @@
                 // Check for onWarn callback function and if there is none, launch dialog
                 if (typeof opt.onWarn !== 'function') {
                     $('#session-timeout-dialog').modal('show');
+                    $('#session-timeout-dialog').focus();
                 } else {
                     opt.onWarn(opt);
                 }
