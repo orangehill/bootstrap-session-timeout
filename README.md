@@ -136,6 +136,14 @@ Default: `false`
 
 If `true`, this will launch the Bootstrap warning dialog / redirect (or callback functions) in a set amounts of time regardless of user activity. This in turn makes the plugin act much like the [jquery-sessionTimeout-bootstrap by maxfierke](https://github.com/maxfierke/jquery-sessionTimeout-bootstrap) plugin.
 
+**clearWarningOnUserActivity**
+
+Type: `Boolean`
+
+Default: `true`
+
+If `true` and `ignoreUserActivity === true`, when user activity is detected on the page during the warning period, the warning dialog will be dismissed. Otherwise, the warning dialog will remain on the page until the user either selects an option or is logged out due to inactivity.
+
 **countdownSmart**
 
 Type: `Boolean`
@@ -188,6 +196,14 @@ Default: `false`
 
 Custom callback you can use instead of redirecting the user to `redirUrl`. Takes options object as the only argument.
 
+**useLocalStorageSynchronization**
+
+Type: `Boolean`
+
+Default: false
+
+Enables cross-tab synchronization to prevent inactive tabs from logging users out during periods of activity in other tabs. The `localStorageSynchronizationKey` option can be customized to change the storage key used (default: `sessionkeepalive__lastkeepalive`).
+
 ## Examples
 
 You can play around with the examples in the `/examples` directory.
@@ -204,7 +220,8 @@ $.sessionTimeout({
 	logoutUrl: 'login.html',
 	redirUrl: 'locked.html',
 	warnAfter: 60000,
-	redirAfter: 120000
+	redirAfter: 120000,
+	useLocalStorageSynchronization: true  // ensure multiple tabs do not conflict with one another
 });
 ```
 

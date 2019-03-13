@@ -25,12 +25,15 @@
             keepAliveInterval: 5000,
             keepAlive: true,
             ignoreUserActivity: false,
+            clearWarningOnUserActivity: true,
             onStart: false,
             onWarn: false,
             onRedir: false,
             countdownMessage: false,
             countdownBar: false,
-            countdownSmart: false
+            countdownSmart: false,
+            useLocalStorageSynchronization: false,
+            localStorageSynchronizationKey: "sessionkeepalive__lastkeepalive"
         };
 
         var opt = defaults,
@@ -109,16 +112,21 @@
 
                 // If they moved the mouse not only reset the counter
                 // but remove the modal too!
-                if ($('#session-timeout-dialog').length > 0 &&
-                    $('#session-timeout-dialog').data('bs.modal') &&
-                    $('#session-timeout-dialog').data('bs.modal').isShown) {
-                    // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
-                    $('#session-timeout-dialog').modal('hide');
-                    $('body').removeClass('modal-open');
-                    $('div.modal-backdrop').remove();
-
+                if (opt.clearWarningOnUserActivity && modalIsDisplayed()) {
+                    removeWarningModal();
                 }
             });
+        }
+
+        function modalIsDisplayed() {
+            return $('#session-timeout-dialog').is(':visible');
+        }
+
+        function removeWarningModal() {
+            // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
+            $('#session-timeout-dialog').modal('hide');
+            $('body').removeClass('modal-open');
+            $('div.modal-backdrop').remove();
         }
 
         // Keeps the server side connection live, by pingin url set in keepAliveUrl option.
@@ -134,6 +142,11 @@
                     data: opt.ajaxData
                 });
                 keepAlivePinged = true;
+
+                if (opt.useLocalStorageSynchronization) {
+                    refreshLastKeepAliveSynchronizationValue();
+                }
+
                 setTimeout(function() {
                     keepAlivePinged = false;
                 }, opt.keepAliveInterval);
@@ -172,7 +185,7 @@
         function startDialogTimer() {
             // Clear session timer
             clearTimeout(timer);
-            if (!$('#session-timeout-dialog').hasClass('in') && (opt.countdownMessage || opt.countdownBar)) {
+            if (!modalIsDisplayed() && (opt.countdownMessage || opt.countdownBar)) {
                 // If warning dialog is not already open and either opt.countdownMessage
                 // or opt.countdownBar are set start countdown
                 startCountdownTimer('dialog', true);
@@ -186,6 +199,21 @@
                     opt.onRedir(opt);
                 }
             }, (opt.redirAfter - opt.warnAfter));
+        }
+
+        function refreshLastKeepAliveSynchronizationValue() {
+            localStorage.setItem(opt.localStorageSynchronizationKey, new Date());
+        }
+
+        function setupLocalStorageEventObservation() {
+            window.addEventListener('storage', function (e) {
+                if (e.key === opt.localStorageSynchronizationKey) {
+                    startSessionTimer();
+                    if (modalIsDisplayed()) {
+                        removeWarningModal();
+                    }
+                }
+            }, );
         }
 
         function startCountdownTimer(type, reset) {
@@ -237,6 +265,10 @@
 
         // Start session timer
         startSessionTimer();
+
+        if (opt.useLocalStorageSynchronization) {
+            setupLocalStorageEventObservation();
+        }
 
     };
 })(jQuery);
