@@ -14,8 +14,10 @@
             title: 'Your Session is About to Expire!',
             message: 'Your session is about to expire.',
             logoutButton: 'Logout',
+            // allow control of logoutButton callback
             logoutButtonCallback: false,
             keepAliveButton: 'Stay Connected',
+            // allow control of keepAliveButton callback
             keepAliveButtonCallback: false,
             keepAliveUrl: '/keep-alive',
             ajaxType: 'POST',
@@ -33,8 +35,11 @@
             countdownMessage: false,
             countdownBar: false,
             countdownSmart: false,
+            // allow control over show/hide modal on mouse or keyboard activity
             activityHidesModal: true,
+            // allow control over timer reset while modal is shown
             resetTimerWhileModalOpen: true,
+            // allow ability to set modal as static.
             isModalStatic: false
         };
 
@@ -65,6 +70,7 @@
                   </div> \
                 </div>' : '';
 
+            // if isModalStatic is true, set modal data attributes to make the modal static
             var modalStaticAttributes = opt.isModalStatic ? 'data-backdrop="static" data-keyboard="false"' : '';
 
             // Create timeout warning dialog
@@ -89,6 +95,7 @@
              </div>');
 
             // "Logout" button click
+            // Allow for callback execution.
             if (typeof opt.logoutButtonCallback !== 'function') {
                 $('#session-timeout-dialog-logout').on('click', function () {
                     window.location = opt.logoutUrl;
@@ -100,6 +107,7 @@
             }
 
             // "Stay Connected" button click
+            // Allow for callback execution.
             if (typeof opt.keepAliveButtonCallback !== 'function') {
                 $('#session-timeout-dialog').on('hide.bs.modal', function () {
                     // Restart session timer
@@ -140,6 +148,7 @@
 
                 // If they moved the mouse not only reset the counter
                 // but remove the modal too!
+                // But only hide the modal if activityHidesModal is true.
                 if (opt.activityHidesModal === true && isModalOpen) {
                     // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
                     $('#session-timeout-dialog').modal('hide');
