@@ -14,7 +14,9 @@
             title: 'Your Session is About to Expire!',
             message: 'Your session is about to expire.',
             logoutButton: 'Logout',
+            logoutButtonCallback: false,
             keepAliveButton: 'Stay Connected',
+            keepAliveButtonCallback: false,
             keepAliveUrl: '/keep-alive',
             ajaxType: 'POST',
             ajaxData: '',
@@ -30,7 +32,10 @@
             onRedir: false,
             countdownMessage: false,
             countdownBar: false,
-            countdownSmart: false
+            countdownSmart: false,
+            activityHidesModal: true,
+            resetTimerWhileModalOpen: true,
+            isModalStatic: false
         };
 
         var opt = defaults,
@@ -60,8 +65,10 @@
                   </div> \
                 </div>' : '';
 
+            var modalStaticAttributes = opt.isModalStatic ? 'data-backdrop="static" data-keyboard="false"' : '';
+
             // Create timeout warning dialog
-            $('body').append('<div class="modal fade" id="session-timeout-dialog"> \
+            $('body').append('<div class="modal fade" id="session-timeout-dialog" ' + modalStaticAttributes + '> \
               <div class="modal-dialog"> \
                 <div class="modal-content"> \
                   <div class="modal-header"> \
@@ -82,14 +89,28 @@
              </div>');
 
             // "Logout" button click
-            $('#session-timeout-dialog-logout').on('click', function() {
-                window.location = opt.logoutUrl;
-            });
+            if (typeof opt.logoutButtonCallback !== 'function') {
+                $('#session-timeout-dialog-logout').on('click', function () {
+                    window.location = opt.logoutUrl;
+                });
+            } else {
+                $('#session-timeout-dialog-logout').on('click', function () {
+                    opt.logoutButtonCallback();
+                });
+            }
+
             // "Stay Connected" button click
-            $('#session-timeout-dialog').on('hide.bs.modal', function() {
-                // Restart session timer
-                startSessionTimer();
-            });
+            if (typeof opt.keepAliveButtonCallback !== 'function') {
+                $('#session-timeout-dialog').on('hide.bs.modal', function () {
+                    // Restart session timer
+                    startSessionTimer();
+                });
+            } else {
+                $('#session-timeout-dialog').on('hide.bs.modal', function () {
+                    opt.keepAliveButtonCallback();
+                    startSessionTimer();
+                });
+            }
         }
 
         // Reset timer on any of these events
@@ -105,23 +126,30 @@
                     mousePosition[0] = e.clientX;
                     mousePosition[1] = e.clientY;
                 }
-                startSessionTimer();
+
+                var isModalOpen = $('#session-timeout-dialog').length > 0 &&
+                                  $('#session-timeout-dialog').data('bs.modal') &&
+                                  $('#session-timeout-dialog').data('bs.modal').isShown;
+               
+                // Reset timer if the modal is not open
+                // OR
+                // if the modal is open AND the option is set to true.
+                if (!isModalOpen || (isModalOpen && opt.resetTimerWhileModalOpen)) {
+                    startSessionTimer();
+                }
 
                 // If they moved the mouse not only reset the counter
                 // but remove the modal too!
-                if ($('#session-timeout-dialog').length > 0 &&
-                    $('#session-timeout-dialog').data('bs.modal') &&
-                    $('#session-timeout-dialog').data('bs.modal').isShown) {
+                if (opt.activityHidesModal === true && isModalOpen) {
                     // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
                     $('#session-timeout-dialog').modal('hide');
                     $('body').removeClass('modal-open');
                     $('div.modal-backdrop').remove();
-
                 }
             });
         }
 
-        // Keeps the server side connection live, by pingin url set in keepAliveUrl option.
+        // Keeps the server side connection live, by pinging url set in keepAliveUrl option.
         // KeepAlivePinged is a helper var to ensure the functionality of the keepAliveInterval option
         var keepAlivePinged = false;
 
