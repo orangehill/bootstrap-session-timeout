@@ -48,6 +48,14 @@ Default: `'Logout'`
 
 This is the text shown to user via Bootstrap warning dialog after warning period in the logout button.
 
+**logoutButtonCallback**<br>
+
+Type: `Boolean` or `function`
+
+Default: `false`
+
+This is a way to set a custom callback behavior for the logout button.
+
 **keepAliveButton**<br>
 
 Type: `String`
@@ -55,6 +63,14 @@ Type: `String`
 Default: `'Stay Connected'`
 
 This is the text shown to user via Bootstrap warning dialog after warning period in the Keep Alive button.
+
+**keepAliveButtonCallback**<br>
+
+Type: `Boolean` or `function`
+
+Default: `false`
+
+This is a way to set a custom callback behavior for the keep alive button.
 
 **keepAliveUrl**
 
@@ -187,6 +203,31 @@ Type: `Function` or `Boolean`
 Default: `false`
 
 Custom callback you can use instead of redirecting the user to `redirUrl`. Takes options object as the only argument.
+
+**activityHidesModal**
+
+Type: `Boolean`
+
+Default: `true`
+
+If `false`, the modal persists on the screen regardless of mouse or keyboard activity.
+
+**resetTimerWhileModalOpen**
+
+Type: `Boolean`
+
+Default: `true`
+
+If `false`, the timer is not reset on any mouse or keyboard activity.
+
+**isModalStatic**
+
+Type: `Boolean`
+
+Default: `false`
+
+If `true`, the modal persists on the screen even when user clicks outside of the modal element or presses the escape key.
+To dismiss the modal the user must use the buttons.
 
 ## Examples
 
