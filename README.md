@@ -50,7 +50,7 @@ This is the text shown to user via Bootstrap warning dialog after warning period
 
 **logoutButtonCallback**<br>
 
-Type: `function`
+Type: `Boolean` or `function`
 
 Default: `false`
 
@@ -66,7 +66,7 @@ This is the text shown to user via Bootstrap warning dialog after warning period
 
 **keepAliveButtonCallback**<br>
 
-Type: `function`
+Type: `Boolean` or `function`
 
 Default: `false`
 
