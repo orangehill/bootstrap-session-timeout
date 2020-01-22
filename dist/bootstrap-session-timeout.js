@@ -172,7 +172,7 @@
         function startDialogTimer() {
             // Clear session timer
             clearTimeout(timer);
-            if (!$('#session-timeout-dialog').hasClass('in') && (opt.countdownMessage || opt.countdownBar)) {
+            if ((!$('#session-timeout-dialog').hasClass('in') && !$('#session-timeout-dialog').hasClass('show')) && (opt.countdownMessage || opt.countdownBar)) {
                 // If warning dialog is not already open and either opt.countdownMessage
                 // or opt.countdownBar are set start countdown
                 startCountdownTimer('dialog', true);
