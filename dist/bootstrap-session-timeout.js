@@ -111,12 +111,11 @@
                 // but remove the modal too!
                 if ($('#session-timeout-dialog').length > 0 &&
                     $('#session-timeout-dialog').data('bs.modal') &&
-                    $('#session-timeout-dialog').data('bs.modal').isShown) {
+                    ($('#session-timeout-dialog').data('bs.modal').isShown || $('#session-timeout-dialog').data('bs.modal')._isShown)) {
                     // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
                     $('#session-timeout-dialog').modal('hide');
                     $('body').removeClass('modal-open');
                     $('div.modal-backdrop').remove();
-
                 }
             });
         }
