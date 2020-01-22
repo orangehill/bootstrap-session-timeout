@@ -111,12 +111,11 @@
                 // but remove the modal too!
                 if ($('#session-timeout-dialog').length > 0 &&
                     $('#session-timeout-dialog').data('bs.modal') &&
-                    $('#session-timeout-dialog').data('bs.modal').isShown) {
+                    ($('#session-timeout-dialog').data('bs.modal').isShown || $('#session-timeout-dialog').data('bs.modal')._isShown)) {
                     // http://stackoverflow.com/questions/11519660/twitter-bootstrap-modal-backdrop-doesnt-disappear
                     $('#session-timeout-dialog').modal('hide');
                     $('body').removeClass('modal-open');
                     $('div.modal-backdrop').remove();
-
                 }
             });
         }
@@ -172,7 +171,7 @@
         function startDialogTimer() {
             // Clear session timer
             clearTimeout(timer);
-            if (!$('#session-timeout-dialog').hasClass('in') && (opt.countdownMessage || opt.countdownBar)) {
+            if ((!$('#session-timeout-dialog').hasClass('in') && !$('#session-timeout-dialog').hasClass('show')) && (opt.countdownMessage || opt.countdownBar)) {
                 // If warning dialog is not already open and either opt.countdownMessage
                 // or opt.countdownBar are set start countdown
                 startCountdownTimer('dialog', true);
